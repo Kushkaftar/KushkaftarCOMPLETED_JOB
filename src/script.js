@@ -30,3 +30,12 @@ let arrLang = {
     'en':['mn', 'ts', 'wd', 'th', 'fr', 'st', 'sn'],
 };
 console.log(arrLang[lang]);
+
+//тернарный опреатор
+
+//получаем значение переменной
+let namePerson = prompt("введите имя");
+
+let position = namePerson === 'Артем' ? "директор" : namePerson === 'Максим' ? "преподаватель" : "студент";
+
+console.log(position);
