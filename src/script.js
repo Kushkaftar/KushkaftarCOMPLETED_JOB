@@ -1,19 +1,45 @@
 //4 task
 
-const f = function (arg) {
-    let message;
+const arr = ['4635598',
+            '216846',
+            '6846945',
+            '583743',
+            '79845612',
+            '985921',
+            '29683515',
+            ];
 
-    if (typeof (arg) === 'string') {
-        message = arg.trim();
-        if (message.length > 30) {
-            message = message.slice(0, 30) + ' ...';
+inConsole(arr);
+
+function inConsole(arr) {
+    arr.forEach(elem => elem[0] === '2' ||  elem[0] === '4' ? console.log(elem) : elem)
+}
+
+let n = 100;
+
+nextPrime:
+    for (let i = 2; i <= n; i++) {
+
+        for (let j = 2; j < i; j++) {
+            if (i % j === 0) continue nextPrime;
         }
-        return message;
-    }
-    message = 'arg not string';
-    return message;
-};
 
-console.log(f(5));
-console.log(f('string'));
-console.log(f('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'));
+        console.log( `${i} Делители этого числа: 1 и ${i}` );
+    }
+
+// mainCycle(15);
+// function mainCycle(n) {
+//     let arr = [];
+//     for (let i = 1; i < n; i++) {
+//         if (i !== 1) {
+//             for (let j = i; j < n; j++) {
+//                 if (j%i !== 0) {
+//                     arr.push(j);
+//                 }
+//             }
+//         }
+//     }
+//     console.log(arr)
+// }
+
+
