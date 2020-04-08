@@ -1,45 +1,32 @@
-//4 task
+//7 task
+const div = document.getElementById('row'),
+    ul = document.createElement('ul'),
+    li = document.createElement('li');
 
-const arr = ['4635598',
-            '216846',
-            '6846945',
-            '583743',
-            '79845612',
-            '985921',
-            '29683515',
-            ];
+let now = new Date(),
+    day = now.getDay(),
+    week = ['пн', 'вт', 'ср','чт', 'пт', 'сб', 'вс'],
+    weekLi = '',
+    l = '';
 
-inConsole(arr);
 
-function inConsole(arr) {
-    arr.forEach(elem => elem[0] === '2' ||  elem[0] === '4' ? console.log(elem) : elem)
-}
+console.log(now.getDay());
 
-let n = 100;
-
-nextPrime:
-    for (let i = 2; i <= n; i++) {
-
-        for (let j = 2; j < i; j++) {
-            if (i % j === 0) continue nextPrime;
-        }
-
-        console.log( `${i} Делители этого числа: 1 и ${i}` );
+for (let i = 0; i < week.length; i++) {
+    if (i === day - 1) {
+        l = `<strong>${week[i]}</strong>`;
+    } else {
+        l = week[i];
     }
 
-// mainCycle(15);
-// function mainCycle(n) {
-//     let arr = [];
-//     for (let i = 1; i < n; i++) {
-//         if (i !== 1) {
-//             for (let j = i; j < n; j++) {
-//                 if (j%i !== 0) {
-//                     arr.push(j);
-//                 }
-//             }
-//         }
-//     }
-//     console.log(arr)
-// }
+    if (i >= 5) {
+        l = `<em>${l}</em>`;
+    }
+    weekLi += `<li>${l}</li>`;
+
+}
+
+ul.innerHTML = weekLi;
+div.append(ul);
 
 
