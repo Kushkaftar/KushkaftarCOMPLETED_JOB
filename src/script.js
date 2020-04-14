@@ -1,3 +1,4 @@
+'use strict';
 //9 task
 const div = document.getElementById('row'),
     divAllTimer = document.getElementById('row1'),
@@ -29,16 +30,17 @@ function timer1() {
 }
 
 function addHour(hh) {
+    let hour = Number(hh);
     let res;
-    switch (hh) {
-        case (1 || 21):
-            res = `${hh} час`;
+    switch (hour) {
+        case (1 , 21):
+            res = `${hour} час`;
             break;
-        case (2 || 3 || 4 || 22 || 23):
-            res = `${hh} часа`;
+        case (2, 3, 4, 22, 23):
+            res = `${hour} часа`;
             break;
         default:
-            res = `${hh} часов`;
+            res = `${hour} часов`;
             break;
     }
     return res;
