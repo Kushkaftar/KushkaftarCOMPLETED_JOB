@@ -1,75 +1,45 @@
 'use strict';
-//9 task
-const div = document.getElementById('row'),
-    divAllTimer = document.getElementById('row1'),
-    p = document.createElement("p"),
-    pp = document.createElement("p");
+//10 task
+const body = document.querySelector("body"),
+    delAdv = document.querySelector(".adv"),
+    books = document.querySelector(".books"),
+    classBook = document.querySelectorAll(".book");
 
-let
-    options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-        timezone: 'UTC',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-    };
-function timer1() {
-    setInterval(function () {
-        let sr = '';
-        let now = new Date();
-        let dates = now.toLocaleString("ru", options);
-        let  arr = dates.split("г.,");
-        let arrTime = arr[1].split(":");
-        sr = `Сегодня ${arr[0]} года, ${addHour(arrTime[0])} ${arrTime[1]} минут ${arrTime[2]} секунды`;
-        p.innerHTML = sr;
-        div.append(p);
-    },1000)
-}
+//Восстановить порядок книг.
+books.append(classBook[1]);
+books.append(classBook[0]);
+books.append(classBook[4]);
+books.append(classBook[3]);
+books.append(classBook[5]);
+books.append(classBook[2]);
 
-function addHour(hh) {
-    let hour = Number(hh);
-    let res;
-    switch (hour) {
-        case (1 , 21):
-            res = `${hour} час`;
-            break;
-        case (2, 3, 4, 22, 23):
-            res = `${hour} часа`;
-            break;
-        default:
-            res = `${hour} часов`;
-            break;
-    }
-    return res;
-}
+//Заменить картинку заднего фона на другую из папки image
+body.style.backgroundImage = "url(image/you-dont-know-js.jpg)";
 
-function addNull(numb) {
-    if (numb < 10) {
-        numb = "0" + numb.toString();
-    }
-    return numb;
-}
+//Исправить заголовок в книге 3( Получится - "Книга 3. this и Прототипы Объектов")
+ let a = classBook[4].querySelector("a");
+ a.innerText = "Книга 3. this и Прототипы Объектов";
 
-// timer
-function timer() {
-    setInterval(function () {
-        let str = '';
-        let now = new Date(),
-            year = now.getFullYear(),
-            month = now.getMonth() + 1,
-            days = now.getDate(),
-            hour = now.getHours(),
-            minute = now.getMinutes(),
-            second = now.getSeconds();
+// del elem class adv Удалить рекламу со страницы
+delAdv.remove();
 
-        str = `${addNull(days)}.${addNull(month)}.${year} - ${addNull(hour)}:${addNull(minute)}:${addNull(second)}`;
-        pp.innerHTML = str;
-        divAllTimer.append(pp);
-    },1000)
-}
-timer ();
+//Восстановить порядок глав во второй и пятой книге (внимательно инспектируйте индексы элементов, поможет dev tools)
+const ul2 = classBook[0].querySelector("ul"),
+    arrLi2 = ul2.querySelectorAll("li");
 
-timer1();
+arrLi2[3].after(arrLi2[8]);
+arrLi2[3].after(arrLi2[6]);
+arrLi2[9].after(arrLi2[2]);
+
+const arrLi5 = classBook[5].querySelectorAll("li");
+
+arrLi5[3].before(arrLi5[9]);
+arrLi5[4].after(arrLi5[2]);
+arrLi5[7].after(arrLi5[5]);
+
+//в шестой книге добавить главу “Глава 8: За пределами ES6” и поставить её в правильное место
+const arrLi6 = classBook[2].querySelectorAll("li");
+console.log(arrLi6);
+let arg8 = document.createElement("li");
+arg8.innerHTML = "Глава 8: За пределами ES6";
+arrLi6[9].before(arg8);
