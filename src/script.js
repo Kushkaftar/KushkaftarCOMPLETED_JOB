@@ -39,7 +39,7 @@ arrLi5[7].after(arrLi5[5]);
 
 //в шестой книге добавить главу “Глава 8: За пределами ES6” и поставить её в правильное место
 const arrLi6 = classBook[2].querySelectorAll("li");
-console.log(arrLi6);
+
 let arg8 = document.createElement("li");
 arg8.innerHTML = "Глава 8: За пределами ES6";
 arrLi6[9].before(arg8);
