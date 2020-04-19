@@ -17,7 +17,8 @@ let startButton = document.getElementById("start"),
     targetMonthValue =  document.getElementsByClassName("target_month-value")[0],
     periodSelect =  document.querySelector(".period-select"),
     incomePeriodValue =  document.getElementsByClassName("income_period-value")[0],
-    additionalExpensesItem =  document.querySelector(".additional_expenses-item");
+    additionalExpensesItem =  document.querySelector(".additional_expenses-item"),
+    body = document.querySelector("body");
 
 
 // button disabled
@@ -40,17 +41,16 @@ let appData = {
     expensesMonth: 0,
 
     start() {
-        let v = valid(salaryAmount);
-        if (v) {
-            appData.budget = +salaryAmount.value;
-            appData.getExpenses();
-            appData.getIncome();
-            appData.getExpensesMonth();
-            appData.getAddExpenses();
-            appData.getAddIncome();
-            appData.getBudget();
-            appData.showResult();
-        }
+
+        appData.budget = +salaryAmount.value;
+        appData.getExpenses();
+        appData.getIncome();
+        appData.getExpensesMonth();
+        appData.getAddExpenses();
+        appData.getAddIncome();
+        appData.getBudget();
+        appData.showResult();
+
     },
 
     addExpensesBlock() {
@@ -81,18 +81,18 @@ let appData = {
 
     getExpenses() {
         expensesItems.forEach(elem => {
-            let elemExpenses = valid(elem.querySelector(".expenses-title")),
-                cashExpenses = valid(elem.querySelector(".expenses-amount"));
+            let elemExpenses = elem.querySelector(".expenses-title").value,
+                cashExpenses = elem.querySelector(".expenses-amount").value;
             if (elemExpenses !== "" && cashExpenses !== "") {
                 appData.expenses[elemExpenses] = +cashExpenses;
             }
-        });
+        })
     },
 
     getIncome() {
         incomeItems.forEach(elem => {
-            let elemIncome = valid(elem.querySelector(".income-title")),
-                cashIncome = valid(elem.querySelector(".income-amount"));
+            let elemIncome = elem.querySelector(".income-title").value,
+                cashIncome = elem.querySelector(".income-amount").value;
             if (elemIncome !== "" && cashIncome !== "") {
                 appData.income[elemIncome] = +cashIncome;
             }
@@ -117,6 +117,7 @@ let appData = {
     },
 
     getAddExpenses() {
+
         let addExp = additionalExpensesItem.value.split(",");
         addExp.forEach(elem => {
             elem = elem.trim();
@@ -128,10 +129,9 @@ let appData = {
 
     getAddIncome() {
         additionalIncomeItem.forEach(elem => {
-            //elem = elem.value.trim();
-            let v = valid(elem);
-            if( v !== '') {
-                appData.addIncome.push(v);
+            elem = elem.value.trim();
+            if(elem !== '') {
+                appData.addIncome.push(elem);
             }
 
         })
@@ -152,8 +152,7 @@ let appData = {
 
     //подсчет периода достижения цели
     getTargetMonth() {
-
-        return Math.ceil(valid(targetAmount)/appData.budgetMonth);
+        return Math.ceil(targetAmount.value/appData.budgetMonth);
     },
     // getStatusIncome ...
     getStatusIncome: function(budgetDay) {
@@ -182,6 +181,7 @@ let appData = {
     calcPeriod() {
         return appData.budgetMonth * periodSelect.value;
     }
+
 };
 
 
@@ -198,56 +198,39 @@ salaryAmount.addEventListener("input", () => {
 periodSelect.addEventListener("input",() => periodAmount.innerHTML = periodSelect.value);
 
 
+body.addEventListener("input", (ev) => {
+    valid(ev.target);
 
+});
 
 // функции
 
 // valid
 function valid(elem) {
-    
-    let res = "";
-    if (elem.value.trim() !== '') {
 
         let placeholder = elem.getAttribute("placeholder");
 
         switch (placeholder) {
             case "Сумма":
-                if (isNumber(elem.value)) {
-                    res = elem.value;
-                    delErrElem(elem);
-
-                } else {
+                if (!isNumber(elem.value)) {
                     elem.value = "";
-                    delErrElem(elem);
-                    elem.insertAdjacentHTML("afterend", "<p id='errValid'>введите число</p>");
-                    //alert("not number");
-
                 }
                 break;
             case "Наименование":
-
-                if (isRuString(elem.value)) {
-                    res = elem.value;
-                    delErrElem(elem);
-                } else {
+                if (!isRuString(elem.value)) {
                     elem.value = "";
-                    delErrElem(elem);
-                    elem.insertAdjacentHTML("afterend", "<p id='errValid'>введите строку</p>");
-                    //alert("not RU, not string");
-
+                }
+                break;
+            case "название":
+                if (!isRuString(elem.value)) {
+                    elem.value = "";
                 }
                 break;
         }
-    } else {elem.value ="";}
-return res;
+
 }
 
-//dell elem ErrValid
-function delErrElem(elem) {
-    if (elem.nextElementSibling !== null && elem.nextElementSibling.getAttribute("id") === "errValid") {
-        elem.nextElementSibling.remove();
-    }
-}
+
 
 // isNumber ...
 function isNumber(n) {
