@@ -204,6 +204,7 @@ periodSelect.addEventListener("input",() => periodAmount.innerHTML = periodSelec
 
 // valid
 function valid(elem) {
+    
     let res = "";
     if (elem.value.trim() !== '') {
 
@@ -212,10 +213,14 @@ function valid(elem) {
         switch (placeholder) {
             case "Сумма":
                 if (isNumber(elem.value)) {
-                    res = elem.value
+                    res = elem.value;
+                    delErrElem(elem);
+
                 } else {
                     elem.value = "";
-                    alert("not number");
+                    delErrElem(elem);
+                    elem.insertAdjacentHTML("afterend", "<p id='errValid'>введите число</p>");
+                    //alert("not number");
 
                 }
                 break;
@@ -223,14 +228,25 @@ function valid(elem) {
 
                 if (isRuString(elem.value)) {
                     res = elem.value;
+                    delErrElem(elem);
                 } else {
                     elem.value = "";
-                    alert("not RU, not string");
+                    delErrElem(elem);
+                    elem.insertAdjacentHTML("afterend", "<p id='errValid'>введите строку</p>");
+                    //alert("not RU, not string");
+
                 }
                 break;
         }
     } else {elem.value ="";}
 return res;
+}
+
+//dell elem ErrValid
+function delErrElem(elem) {
+    if (elem.nextElementSibling !== null && elem.nextElementSibling.getAttribute("id") === "errValid") {
+        elem.nextElementSibling.remove();
+    }
 }
 
 // isNumber ...
