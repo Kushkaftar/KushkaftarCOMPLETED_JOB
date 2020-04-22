@@ -1,52 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ToDo</title>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
 <body>
-<div class="container">
-    <h1 id="color"></h1>
-    <button id="change" class="btn waves-effect waves-light">change color</button>
+
+<header class="header">
+	<form class="todo-control">
+		<label><input class="header-input" type="text" placeholder="Какие планы?"></label>
+		<button class="header-button" id="add"></button>
+	</form>
+</header>
+
+<div class="todo-container">
+
+	<ul class="todo todo-list" id="todo">
+		<li class="todo-item">
+			<span class="text-todo">Сварить кофе</span>
+			<div class="todo-buttons">
+				<button class="todo-remove"></button>
+				<button class="todo-complete"></button>
+			</div>
+		</li>
+	</ul>
+	<ul class="todo todo-completed" id="completed">
+		<li class="todo-item">
+			<span class="text-todo">Помыть посуду</span>
+			<div class="todo-buttons">
+				<button class="todo-remove"></button>
+				<button class="todo-complete"></button>
+			</div>
+		</li>
+	</ul>
 </div>
 
-<script>
-    let min = 0,
-        max =15,
-        hexColor = "ffffff",
-        body = document.querySelector("body"),
-        color = document.querySelector("#color"),
-        change = document.querySelector("#change");
-    body.style.backgroundColor = `#${hexColor}`;
-    color.innerHTML = `#${hexColor}`;
-
-    function randomInteger(min, max) {
-        let hex = '';
-        for (let i = 0; i < 6; i++) {
-        let rand = min + Math.random() * (max + 1 - min);
-        hex += Math.floor(rand).toString(16);
-        }
-        return hex;
-    }
-
-
-
-        change.addEventListener("click", () => {
-            hexColor = randomInteger(min, max);
-            body.style.backgroundColor = `#${hexColor}`;
-            color.innerHTML = `#${hexColor}`;
-            console.log(hexColor);
-        })
-</script>
+<script src="js/script.js"></script>
 </body>
-
 </html>
